@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { TrackItemProps } from "@/types/track";
 
@@ -16,15 +18,12 @@ const TrackItem = ({
 }: Props) => (
   <li
     className={`flex items-center justify-between w-full rounded-lg px-2 py-1 bg-black/30 shadow-lg  cursor-pointer ${
-      selected ? "bg-gray-700" : ""}`}
+      selected ? "bg-gray-700" : ""
+    }`}
     onClick={onClick}
   >
     <div className="flex gap-4 items-center">
-      <img
-        src="https://picsum.photos/20/20"
-        className="w-11 h-11 rounded-md"
-        alt="Album cover"
-      />
+      <img src={img} className="w-11 h-11 rounded-md" alt="Album cover" />
       <div className="flex flex-col justify-center">
         <div className="font-bold text-white">{title}</div>
         <div className="text-xs text-gray-400">{artist}</div>

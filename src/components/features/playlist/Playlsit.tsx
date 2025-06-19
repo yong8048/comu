@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import PlaylistHeader from "./PlaylistHeader";
 import PlaylistCategory from "./PlaylistCategory";

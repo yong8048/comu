@@ -1,3 +1,6 @@
+"use client";
+import React, { useRef, useState, useCallback } from "react";
+
 const categories = [
   { name: "Coding", gradient: "from-blue-200 to-blue-900" },
   { name: "Chill", gradient: "from-pink-400 to-purple-800" },
@@ -5,8 +8,48 @@ const categories = [
 ];
 
 export default function PlaylistCategory() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.pageX - (scrollRef.current?.offsetLeft || 0));
+    setScrollLeft(scrollRef.current?.scrollLeft || 0);
+  }, []);
+
+  const onMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - (scrollRef.current?.offsetLeft || 0);
+      const walk = x - startX;
+      if (scrollRef.current) {
+        scrollRef.current.scrollLeft = scrollLeft - walk;
+      }
+    },
+    [isDragging, startX, scrollLeft]
+  );
+
+  const onMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
+  const onMouseLeave = useCallback(() => {
+    setIsDragging(false);
+  }, []);
+
   return (
-    <div className="flex gap-4 pb-4 h-[22vh] overflow-x-auto pl-2 ">
+    <div
+      ref={scrollRef}
+      className="flex gap-4 pb-4 h-[22vh] overflow-x-auto pl-2 "
+      style={{ cursor: isDragging ? "grabbing" : "grab" }}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+      onMouseLeave={onMouseLeave}
+    >
       {categories.map((cat) => (
         <div
           key={cat.name}
