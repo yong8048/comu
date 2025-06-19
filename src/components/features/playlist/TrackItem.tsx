@@ -1,19 +1,39 @@
-import React from 'react';
-import { tracks } from './TrackList';
+import React from "react";
+import { TrackItemProps } from "@/types/track";
 
-const TrackItem = () => {
-  return (
-    <li className={`flex items-center justify-between p-2 rounded-lg w-[100%]`}>
-      <div className="">
-        <img src={tracks[0].img} className="w-12 h-12 rounded-md mr-4" />
+interface Props extends TrackItemProps {
+  selected?: boolean;
+  onClick?: () => void;
+}
+
+const TrackItem = ({
+  img,
+  title,
+  artist,
+  duration,
+  selected,
+  onClick,
+}: Props) => (
+  <li
+    className={`flex items-center justify-between w-full rounded-lg px-2 py-1 bg-black/30 shadow-lg  cursor-pointer ${
+      selected ? "bg-gray-700" : ""}`}
+    onClick={onClick}
+  >
+    <div className="flex gap-4 items-center">
+      <img
+        src="https://picsum.photos/20/20"
+        className="w-11 h-11 rounded-md"
+        alt="Album cover"
+      />
+      <div className="flex flex-col justify-center">
+        <div className="font-bold text-white">{title}</div>
+        <div className="text-xs text-gray-400">{artist}</div>
       </div>
-      <div className="flex-1">
-        <div className="text-white font-bold">{tracks[0].title}</div>
-        <div className="text-gray-400 text-sm">{tracks[0].artist}</div>
-      </div>
-      <div className="text-gray-400">{tracks[0].duration}</div>
-    </li>
-  );
-};
+    </div>
+    <div className="flex justify-end items-center min-w-[48px]">
+      <span className="text-xs text-gray-400">{duration}</span>
+    </div>
+  </li>
+);
 
 export default TrackItem;

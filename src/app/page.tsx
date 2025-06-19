@@ -1,11 +1,19 @@
-import Playlsit from '@/components/features/playlist/Playlsit';
-import AppHeader from '@/components/layout/AppHeader';
+import Playlsit from "@/components/features/playlist/Playlsit";
+import AppHeader from "@/components/layout/AppHeader";
+import { fetchRandomTrack } from "@/lib/jamendo";
 
-export default function Home() {
+export default async function Home() {
+  let track = null;
+  try {
+    track = await fetchRandomTrack();
+  } catch (e) {
+    console.log(e);
+  }
+
   return (
-    <main className="flex min-h-screen w-full items-center bg-black">
-      <div className="w-full mx-auto px-8 py-12">
-        <div className="flex items-center">
+    <main className="w-full h-screen bg-black">
+      <div className="container mx-auto h-full">
+        <div className="flex justify-center items-center p-10">
           <AppHeader />
           <Playlsit />
         </div>

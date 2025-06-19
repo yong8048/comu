@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -21,8 +21,6 @@
 
 /* Reset CSS */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -61,8 +59,6 @@ main {
 /* styles/globals.css */
 html,
 body {
-  padding: 0;
-  margin: 0;
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -76,7 +72,6 @@ body {
     Helvetica Neue,
     sans-serif;
   line-height: 1.6;
-  font-size: 18px;
 }
 
 * {
@@ -175,8 +170,6 @@ time,
 mark,
 audio,
 video {
-  font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -208,7 +201,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 table {
