@@ -39,7 +39,7 @@ const TrackList = () => {
     <div className="w-[350px] h-[75%] overflow-hidden">
       <h2 className="text-2xl text-white font-cursive">재생목록</h2>
       <div className="flex justify-center">
-        <ul className="h-[350px] w-[350px] overflow-y-auto ">
+        <ul className="h-[300px] w-full overflow-y-auto ">
           {tracks.length === 0
             ? skeletonArray.map((_, idx) => (
                 <li

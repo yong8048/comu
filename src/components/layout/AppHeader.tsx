@@ -37,7 +37,7 @@ const AppHeader = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center items-center w-full">
+    <section className="flex flex-col justify-center items-center w-full h-full">
       <div className="flex flex-col gap-5 w-3/5">
         <h1 className="text-7xl font-bold text-white">Coding Music</h1>
         <div className="flex flex-col gap-2">

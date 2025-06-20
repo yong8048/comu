@@ -1,6 +1,11 @@
-export async function fetchRandomTrack() {
+export async function fetchRandomTrack(
+  tags: string = "motivational+synthesizer"
+) {
   try {
-    const response = await fetch("/api/jamendo", { cache: "no-store" });
+    const response = await fetch(
+      `/api/jamendo?tags=${encodeURIComponent(tags)}`,
+      { cache: "no-store" }
+    );
     if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
     const data = await response.json();
     return data.results;
@@ -9,5 +14,3 @@ export async function fetchRandomTrack() {
     return [];
   }
 }
-
-//https://api.jamendo.com/v3.0/tracks/?client_id=255ae4b1&format=json&limit=10

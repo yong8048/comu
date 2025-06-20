@@ -1,10 +1,24 @@
 "use client";
 import React, { useRef, useState, useCallback } from "react";
+import { fetchRandomTrack } from "@/lib/jamendo";
+import { usePlaylistStore } from "@/store/usePlaylistStore";
 
 const categories = [
-  { name: "Coding", gradient: "from-blue-200 to-blue-900" },
-  { name: "Chill", gradient: "from-pink-400 to-purple-800" },
-  { name: "Study", gradient: "from-orange-300 to-orange-800" },
+  {
+    name: "Cafe",
+    gradient: "from-blue-200 to-blue-900",
+    tag: "motivational+synthesizer",
+  },
+  {
+    name: "Piano",
+    gradient: "from-pink-400 to-purple-800",
+    tag: "sad+piano",
+  },
+  {
+    name: "Chill",
+    gradient: "from-orange-300 to-orange-800",
+    tag: "chillout+instrumental",
+  },
 ];
 
 export default function PlaylistCategory() {
@@ -12,6 +26,7 @@ export default function PlaylistCategory() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const setTracks = usePlaylistStore((state) => state.setTracks);
 
   const onMouseDown = useCallback((e: React.MouseEvent) => {
     setIsDragging(true);
@@ -40,10 +55,15 @@ export default function PlaylistCategory() {
     setIsDragging(false);
   }, []);
 
+  const handleCategoryClick = async (tag: string) => {
+    const tracks = await fetchRandomTrack(tag);
+    setTracks(tracks);
+  };
+
   return (
     <div
       ref={scrollRef}
-      className="flex gap-4 pb-4 h-[22vh] overflow-x-auto pl-2 "
+      className="flex gap-4 mt-2 h-[22vh] overflow-x-auto px-2 "
       style={{ cursor: isDragging ? "grabbing" : "grab" }}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
@@ -53,7 +73,8 @@ export default function PlaylistCategory() {
       {categories.map((cat) => (
         <div
           key={cat.name}
-          className={`hover:cursor-pointer min-w-[150px] h-[20vh] rounded-xl flex items-center justify-center text-2xl font-cursive text-white bg-gradient-to-br ${cat.gradient} shadow-lg`}
+          className={`hover:cursor-pointer min-w-[150px] h-[20vh] rounded-xl flex items-center justify-center text-xl font-cursive text-white bg-gradient-to-br ${cat.gradient} shadow-lg`}
+          onClick={() => handleCategoryClick(cat.tag)}
         >
           {cat.name}
         </div>
