@@ -8,6 +8,8 @@ import { usePlaylistStore } from "@/store/usePlaylistStore";
 const PlaylistBar = () => {
   const { isPlaying, togglePlay } = useMusicStore();
   const [isLoading, setIsLoading] = useState(true);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const tracks = usePlaylistStore((state) => state.tracks);
   const selectedTrack = usePlaylistStore((state) => state.selectedTrack);
   const selectTrack = usePlaylistStore((state) => state.selectTrack);
@@ -33,6 +35,32 @@ const PlaylistBar = () => {
     }
   }, [tracks, selectedTrack, selectTrack]);
 
+  // 오디오 시간 업데이트
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const updateTime = () => setCurrentTime(audio.currentTime);
+    const updateDuration = () => setDuration(audio.duration);
+    audio.addEventListener("timeupdate", updateTime);
+    audio.addEventListener("loadedmetadata", updateDuration);
+
+    // 다음 곡 자동 재생
+    const handleEnded = () => {
+      if (!tracks || tracks.length === 0) return;
+      if (!selectedTrack) return;
+      const idx = tracks.findIndex((t) => t.id === selectedTrack.id);
+      const nextIdx = (idx + 1) % tracks.length;
+      selectTrack(tracks[nextIdx]);
+    };
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateTime);
+      audio.removeEventListener("loadedmetadata", updateDuration);
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, [selectedTrack, tracks, selectTrack]);
+
   if (isLoading) {
     return (
       <div className="flex w-[95%] h-[72px] rounded-xl items-center justify-between bg-purple-600 shadow-lg mx-auto my-4 animate-pulse">
@@ -55,8 +83,16 @@ const PlaylistBar = () => {
   if (!selectedTrack) return null;
 
   return (
-    <div className="flex w-[95%] rounded-xl items-center justify-between bg-purple-600 shadow-lg mx-auto my-4">
-      <div className="flex w-[97%] justify-between">
+    <div className="flex flex-col w-[95%] rounded-xl bg-purple-600 shadow-lg mx-auto">
+      <div className="w-[95%] h-[2px] bg-purple-400 rounded-xl mx-auto relative ">
+        <div
+          className="h-[2px] bg-white rounded-t-xl "
+          style={{
+            width: duration ? `${(currentTime / duration) * 100}%` : "0%",
+          }}
+        ></div>
+      </div>
+      <div className="flex w-[97%] justify-between items-center p-1 pr-2 mx-auto">
         <div className="flex gap-2">
           <div className="w-12">
             <img
