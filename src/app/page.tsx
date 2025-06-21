@@ -26,9 +26,13 @@ export default function Home() {
   return (
     <main className="w-full h-screen bg-black">
       <div className="container mx-auto h-full">
-        <div className="flex justify-center items-center p-10">
-          <AppHeader />
-          <Playlsit />
+        <div className="flex justify-around items-center p-0 lg:p-10 h-full">
+          <div className="hidden lg:block">
+            <AppHeader />
+          </div>
+          <div>
+            <Playlsit />
+          </div>
         </div>
       </div>
     </main>

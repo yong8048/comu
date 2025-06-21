@@ -36,7 +36,7 @@ const TrackList = () => {
   }, [tracks]);
 
   return (
-    <div className="w-[350px] h-[75%] overflow-hidden">
+    <div className="w-full lg:w-[350px] h-[75%] overflow-hidden">
       <h2 className="text-2xl text-white font-cursive">재생목록</h2>
       <div className="flex justify-center">
         <ul className="h-[300px] w-full overflow-y-auto ">

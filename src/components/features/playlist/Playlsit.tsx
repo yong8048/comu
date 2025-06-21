@@ -7,8 +7,8 @@ import PlaylistBar from "./PlaylistBar";
 
 const Playlsit = () => {
   return (
-    <section className="flex justify-center items-center min-h-[600px] max-h-[90vh]">
-      <div className="flex flex-col justify-between items-center w-[400px] min-h-[600px] max-h-[90vh] border-1 border-gray-600 rounded-2xl bg-black/80">
+    <section className="flex justify-center items-center min-h-[600px] max-h-[90vh] lg:mt-0 ">
+      <div className="flex flex-col justify-between items-center w-[320px] lg:w-[400px] min-h-[600px] max-h-[90vh] border-1 border-gray-600 rounded-2xl bg-black/80">
         <div className="flex flex-col w-full">
           <PlaylistHeader />
           <PlaylistCategory />

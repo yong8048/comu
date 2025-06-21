@@ -51,7 +51,7 @@ const PlaylistHeader = () => {
   };
 
   return (
-    <div className="flex justify-end items-center h-12 w-full px-6 relative">
+    <div className="flex justify-end items-center h-12 w-full px-6 relative ${}">
       {open ? (
         <div
           ref={menuRef}
@@ -69,21 +69,22 @@ const PlaylistHeader = () => {
             <li className="hover:underline cursor-pointer" onClick={clickShare}>
               공유
             </li>
-            <li className="">궁금하거나 불편한 점은</li>
-            <li className="">아래 메일로 연락 부탁드립니다.</li>
           </ul>
-          <div className="absolute bottom-10 right-10">sylee8048@naver.com</div>
+          <div className="absolute bottom-10 right-10">sylee8048@gmail.com</div>
         </div>
       ) : (
-        <button
-          className="hover:cursor-pointer rounded-full z-50"
-          onClick={() => {
-            setOpen(true);
-            setTimeout(() => setShow(true), 10); // mount 후 애니메이션
-          }}
-        >
-          <Menu className="w-6 h-6" />
-        </button>
+        <div className="flex items-center justify-between w-full lg:w-auto">
+          <p className="lg:hidden">COMU - 음악 스트리밍</p>
+          <button
+            className="hover:cursor-pointer rounded-full z-50"
+            onClick={() => {
+              setOpen(true);
+              setTimeout(() => setShow(true), 10); // mount 후 애니메이션
+            }}
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
       )}
     </div>
   );

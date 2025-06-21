@@ -83,7 +83,7 @@ const PlaylistBar = () => {
   if (!selectedTrack) return null;
 
   return (
-    <div className="flex flex-col w-[95%] rounded-xl bg-purple-600 shadow-lg mx-auto">
+    <div className="flex flex-col w-full lg:w-[95%] rounded-xl bg-purple-600 shadow-lg mx-auto">
       <div className="w-[95%] h-[2px] bg-purple-400 rounded-xl mx-auto relative ">
         <div
           className="h-[2px] bg-white rounded-t-xl "
